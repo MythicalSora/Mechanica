@@ -1,0 +1,5 @@
+/config.json
+/Pipfile.lock
+**/__pycache__
+**/pokemon
+**/.vscode
