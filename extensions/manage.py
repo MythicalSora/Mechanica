@@ -23,7 +23,7 @@ class Manage(commands.Cog):
     @commands.command()
     async def unload(self, ctx, extension):
         if is_developer(ctx.message.author):
-            bot.unload_extension(extension)
+            self.bot.unload_extension(extension)
             await ctx.send(embed=notif_handler(f"Extension '{extension}' successfully unloaded!"))
         else:
             await ctx.send(embed=no_developer())

@@ -15,20 +15,22 @@ forecasts = [
 class Weather(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.channel = bot.get_channel('770672155318550528')
-
-        print(self.channel)
 
         self.send_forecast.start()
 
 
-    @tasks.loop(seconds=10.0)
+    @tasks.loop(hours=24)
     async def send_forecast(self):
         await self.channel.send(embed=discord.Embed(
             title=f"{datetime.date(datetime.now())}",
             description=random.choice(forecasts),
             color=discord.Colour.orange()
         ))
+
+    @send_forecast.before_loop
+    async def ready_up(self):
+        await self.bot.wait_until_ready()
+        self.channel = self.bot.get_channel(770672155318550528)
     
 
 def setup(bot):
